@@ -11,13 +11,13 @@
 - clean
 - install langpacks-ru
 - setup drivers for Nvidia
-### Installed packages:
+### Installed programms:
 - figlet toilet
 - fbreader
 - liferea
 - qbittorent
-- evolution #почта
-- unar #уже не помню
+- evolution
+- unar
 - unzip
 - vlc
 - emacs

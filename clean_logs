@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 sudo dnf -y autoremove
 sudo dnf clean all
 sudo dnf -y update
