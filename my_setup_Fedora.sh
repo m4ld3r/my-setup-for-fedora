@@ -2,7 +2,7 @@
 wget -q --spider http://google.com
 if [ $? -eq 0 ]; then
 	sudo dnf -y install figlet toilet
-	figlet -cw 200 "ONLINE"
+	figlet -cw 200 "YOU'RE ONLINE"
 	sleep 5
 	figlet -cw 200 "EDIT DNF"
 	sleep 10
