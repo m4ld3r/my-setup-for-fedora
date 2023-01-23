@@ -31,8 +31,12 @@ if [ $? -eq 0 ]; then
 	sudo dnf -y groupupdate multimedia sound-and-video
 	figlet -cw 200 "CODECS READY"
 	sleep 10
+	mkgir ~/.ssh && cd /.ssh && ssh-keygen
+	figlet -cw 200 "SSH & GIT IS READY"
+	sleep 10
 	figlet -cw 200 "INSTALL PACKAGES"
 	sudo dnf -y install fbreader
+	sudo dnf -y install rpi-imager
 	sudo dnf -y install liferea
 	sudo dnf -y install qbittorrent
 	sudo dnf -y install evolution
@@ -62,6 +66,7 @@ if [ $? -eq 0 ]; then
 	#sudo dnf -y install aspnetcore-runtime-6.0
 	#sudo dnf -y install dotnet-runtime-6.0
 	sudo dnf -y install dnf-automatic
+	sudo dnf -y install doublecmd-qt
 	figlet -cw 200 "PACKAGES READY"
 	sleep 10
 	figlet -cw 200 "INSTALL SUBLIME"
@@ -96,13 +101,18 @@ if [ $? -eq 0 ]; then
 	sleep 10
 	figlet -cw 200 "RUSSIAN LANGUAGE READY"
 	sudo systemctl enable dnf-automatic.timer
-	figlet -cw 200 "UPDATE'S AUTOMATIC"
-	sudo plymouth-set-default-theme spinner -R
-	sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-	sudo dnf update -y
-	sudo dnf install xorg-x11-drv-nvidia akmod-nvidia
+	alias update="sudo dnf distro-sync && sudo dnf -y upgrade && sudo snap refresh && sudo dracut --force"
+	alias reboot="update && reboot"
+	alias poweroff="update && poweroff"
+	alias clean="sudo dnf clean all && sudo dnf -y autoremove && sudo pkcon refresh force && sudo rm -v -f ~/.cache/thumbnails/*/*.png ~/.thumbnails/*/*.png && sudo rm -v -f ~/.cache/thumbnails/*/*/*.png ~/.thumbnails/*/*/*.png && sudo rm -f /var/lib/dnf/history.sql* && sudo dracut --force"
+	figlet -cw 200 "UPDATE & ALIAS IS AUTOMATIC"
+	sudo plymouth-set-default-theme details -R
+	#sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+	update
+	clean
+	#sudo dnf install xorg-x11-drv-nvidia akmod-nvidia
 	figlet -cw 200 "DRIVERS READY"
-	figlet -cw 200 "ALL'RE INSTALLED ^_^"
+	figlet -cw 200 "ALL'RE INSTALLED,SET UP & UPDATE ^_^"
 	figlet -cw 200 "AND NOW REBOOT"
 	sleep 30
 	sudo reboot
